@@ -8,9 +8,44 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'connexion',
     pathMatch: 'full'
   },
+  {
+    path: 'connexion',
+    loadChildren: () => import('./auth/connexion/connexion.module').then( m => m.ConnexionPageModule)
+  },
+  {
+    path: 'tab',
+    loadChildren: () => import('./tab/tab.module').then( m => m.TabPageModule)
+  },
+  {
+    path: 'ajouter-produit',
+    loadChildren: () => import('./pages/ajouter-produit/ajouter-produit.module').then( m => m.AjouterProduitPageModule)
+  },
+  {
+    path: 'inscription',
+    loadChildren: () => import('./auth/inscription/inscription.module').then( m => m.InscriptionPageModule)
+  },
+  {
+    path: 'history',
+    loadChildren: () => import('./pages/history/history.module').then( m => m.HistoryPageModule)
+  },
+  {
+    path: 'about',
+    loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule)
+  },
+  {
+    path: 'menu',
+    loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule)
+  },
+  {
+    path: 'modifier-produit',
+    loadChildren: () => import('./pages/modifier-produit/modifier-produit.module').then( m => m.ModifierProduitPageModule)
+  },
+  
+
+
 ];
 
 @NgModule({
