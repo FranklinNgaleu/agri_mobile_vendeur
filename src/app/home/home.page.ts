@@ -2,11 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, ModalController } from '@ionic/angular';
-import { map, Observable } from 'rxjs';
+import { map, Observable, pipe } from 'rxjs';
 import { ProduitService } from '../services/produit.service';
 import { Produit } from './produit.model';
 import { tap } from 'rxjs';
 import { DetailComponent } from '../detail/detail.component';
+import { userInfo } from 'os';
+import { UserHelper } from '../helpers/user';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +16,13 @@ import { DetailComponent } from '../detail/detail.component';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  
+  isAvaiMode = false;
   produits$!: Observable<Produit[]>;
+  userData:any;
+  listProduit:any;
   
-
+  
+user:any
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -36,15 +41,33 @@ export class HomePage {
 
 
   async ngOnInit(){
+    this.userData = UserHelper.getUser()?.user;
+    console.log(this.userData.id)
     const loading = await this.loadingCtrl.create({ message: 'Loading...'});
-    loading.present();
-    this.produits$ = this.produitService.getProduit().pipe(
-      tap((produits) => {
-        loading.dismiss();
-        return produits;
-      })
-    )
+    //loading.present();
+    this.produits$ = this.produitService.getProduitByUserID(this.userData.id)
+    // .pipe(
+    //   // tap((produits) => {
+    //   //   loading.dismiss();
+
+    //   // })
+    // )
+    console.log()
+
+    //this.getListOfProduit();
+    
   }
+
+  // async getListOfProduit(){
+  //   const loading = await this.loadingCtrl.create({ message: 'Loading...'});
+  //   loading.present();
+  //   this.produitService.getProduit().subscribe((res : any) => {
+  //     loading.dismiss();
+  //     this.listProduit = res;
+  //     console.log(this.listProduit)
+  //   })
+
+  // }
 
   async openDetailModal(produit: Produit){
     const modal = await this.modalCtrl.create({
@@ -52,7 +75,6 @@ export class HomePage {
       componentProps:{produit},
     });
     await modal.present();
-
     const {data: updatedProduit,role} = await modal.onDidDismiss();
     if(updatedProduit && role === 'edit'){
       this.produits$ = this.produits$.pipe(
@@ -67,7 +89,6 @@ export class HomePage {
         })
       )
     }
-
     if(role === 'delete'){
       this.produits$ = this.produits$.pipe(
         map((produits)  => {
@@ -76,6 +97,7 @@ export class HomePage {
         })
       );
     }
-
   }
+
+  
 }

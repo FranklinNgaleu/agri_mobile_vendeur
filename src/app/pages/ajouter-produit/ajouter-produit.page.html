@@ -17,7 +17,7 @@
 
 
 <ion-content fullscreen>
-  <form [formGroup]="form" >
+  <form [formGroup]="form">
     <ion-card>
      <ion-item>
       <ion-label position="floating">Nom</ion-label>
@@ -36,15 +36,15 @@
 
     <ion-card>
       <ion-item>
-        <ion-label position="floating">Photo</ion-label>
-        <ion-input formControlName="photo"></ion-input>
+        <ion-label position="floating"></ion-label>
+        <ion-input type="file" formControlName="photo"></ion-input>
       </ion-item>
     </ion-card>
   
     <ion-card>
       <ion-item>
         <ion-label position="floating">Stock</ion-label>
-        <ion-input formControlName="stock"></ion-input>
+        <ion-input type="number" formControlName="stock"></ion-input>
       </ion-item>
     </ion-card>
   
@@ -58,29 +58,26 @@
     <ion-card>
       <ion-item>
         <ion-label position="floating">Price</ion-label>
-        <ion-input formControlName="price"></ion-input>
+        <ion-input type="number" formControlName="price"></ion-input>
       </ion-item>
     </ion-card>
-
 
     <ion-card>
       <ion-item>
         <ion-select formControlName="status" placeholder="Status">
-          <ion-select-option value="Available">Available</ion-select-option>
-          <ion-select-option value="Unavailable">Unavailable</ion-select-option>
+          <ion-select-option value="available">Available</ion-select-option>
+          <ion-select-option value="unavailable">Unavailable</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-card>
   
-    <!-- <ion-card>
-      <ion-item>
-        <ion-select placeholder="Categorie">
-          <ion-select-option value="apples">Apples</ion-select-option>
-          <ion-select-option value="oranges">Oranges</ion-select-option>
-          <ion-select-option value="bananas">Bananas</ion-select-option>
+    <ion-card>
+      <ion-item *ngFor="let cat of categorie">
+        <ion-select formControlName="category" placeholder="Categorie">
+          <ion-select-option>{{cat.title}}</ion-select-option>
         </ion-select>
       </ion-item>
-    </ion-card> -->
+    </ion-card>
 
     <ion-button expand="block" (click)="add()"  style="margin-top: 20px;"> 
       {{isEditMode ? 'Update' : 'Add'}} 

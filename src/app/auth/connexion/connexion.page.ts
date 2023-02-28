@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-// import { Router } from '@angular/router';
-// import { NgxSpinnerService } from 'ngx-spinner';
-// import { AuthService } from 'src/app/services/auth.service';
-// import { Login } from './login.model';
+import { Router } from '@angular/router';
+import { NavController, ToastController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserHelper } from 'src/app/helpers/user';
 
 
 @Component({
@@ -11,59 +12,125 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./connexion.page.scss'],
 })
 export class ConnexionPage{
-
-    // password:any;
-    
-    // isSubmitted = false;
-    // user: any={};
-    // userActu: any={};
-    //loginname : String;
-    
-    // errorMessage:string;  
-    // name : string;  
-
-    // id:any;
-    // login = new Login
-    // target: any = ''
-    // token: any;
-    // tokenval:any = '';
   
+  //mes we
+  userData: any; 
+  message:any;
+
+  loginForm = this.formBuilder.group({
+    email: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+  });
+
+
+  public formData!: FormGroup;
+  users: any = {};
+  userss:any = {};
+  private myToast:any;
 
   constructor(
-    // private loginApi : AuthService,
-    // private spinner: NgxSpinnerService,
-    // private route: Router
+    public fb: FormBuilder,
+    private toast: ToastController,
+
+    //mes we
+    private navCtrl: NavController,
+    private router: Router,
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
+    // this.infoForm();
+    
   }
 
-  // loginUser() {
-  //   this.spinner.show();
-  //   if (this.login.email == undefined || this.login.password == undefined) {
-  //     this.target = '<div class="alert alert-danger" > Error! Please enter the details</div>';
-  //     setTimeout(() => {
-  //       this.spinner.hide();
-  //     }, 1000);
-  //     return;
+  // getUser(){
+  //   if(localStorage.getItem('users') === null){
+  //     this.userss = [];
+  //   }else{
+  //     this.userss = JSON.parse(localStorage.getItem('users'));
   //   }
-  //   this.loginApi.loginUser(this.login).subscribe((response: any) => {
-  //     setTimeout(() => {
-  //       this.spinner.hide();
-  //     }, 1000);
-  //       this.login.email = '';
-  //       this.login.password = '';
-  //       console.log(response);
-  //       if (response.code == 1) {
-  //           this.token = localStorage.setItem('token', response.token);
-  //           console.log("set token to storage", localStorage.getItem('token'));
-  //           this.target = '<div class="alert alert-success" > Success! ' + response.message + '</div>';
-  //           this.route.navigate(['tab/home']);
-  //       }
-  //     else if (response.code == 2) {
-  //       this.target = '<div class="alert alert-danger" > Error! ' + response.message + '</div>';
-  //     }
+  // }
+
+  // infoForm(){
+  //   this.authService.formData = this.fb.group({ 
+  //     email: ['',Validators.required],
+  //     password: ['',Validators.required],
+  //     // role: ['',Validators.required],
   //   });
   // }
+
+  // login(){
+  //   const val = this.authService.formData.value;
+  //   this.authService.login(val.email, val.password).subscribe(res =>{
+  //     this.users = res;
+  //     console.log(this.users.user);
+  //     let jwt = "bearer" + this.users.jwt;
+  //     localStorage.setItem("token",jwt)
+  //     localStorage.setItem("user",JSON.stringify(this.users.user))
+  //     this.authService.islogin = true;
+  //     if(this.users.user.role == "vendeur" && this.users.user.status == "active" ){
+  //       // this.authService.vendeur = true;
+  //       this.router.navigate(['/tab/home']);
+  //     }
+  //     // else {
+  //     //   this.authService.admin = true;
+  //     //   this.router.navigate(['/tab/about']);
+  //     // }
+  //   });
+  // }
+
+  // showToast(msg: string){
+  //   this.myToast = this.toast.create({
+  //     message:msg,
+  //     duration: 2000
+  //   }).then((toastData) => {
+  //     console.log(toastData);
+  //     toastData.present();
+  //   });
+  // }
+
+  // HideToast(){
+  //   this.myToast = this.toast.dismiss();
+  // }
+
+  // logOut(){
+  //   localStorage.removeItem("email");
+  // }
+
+
+  // ma fonction de login
+  
+  
+  login() {
+    let login={
+      email : this.loginForm.value.email,
+      password : this.loginForm.value.password,
+    };
+    console.log(login);
+    this.authService.login(login).toPromise().then((data:any)=>{
+      console.log(login);
+      UserHelper.connect(data);
+      this.userData = UserHelper.getUser()?.user;
+      if(this.userData.email == this.loginForm.value.email){
+        this.redirectByRole();
+      }else{
+        console.log("ndem");
+      }
+    },
+    (res) => {
+     
+    })
+    // Enabling Side Menu
+    
+  }
+
+  redirectByRole(){
+    if(this. userData.role == 'vendeur'){
+      console.log(UserHelper.getUser());
+    this.navCtrl.navigateRoot('/tab/home', { animationDirection: 'forward' });
+    };
+  }
+  
 
 }

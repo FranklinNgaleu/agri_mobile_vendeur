@@ -5,7 +5,8 @@ import { ActionSheetController, LoadingController, ModalController } from '@ioni
 import { take } from 'rxjs';
 import { Produit } from 'src/app/home/produit.model';
 import { ProduitService } from 'src/app/services/produit.service';
-import { Camera, CameraOptions } from '@ionic-native/Camera/ngx';
+import { CategoriesService } from 'src/app/services/categories.service';
+import { UserHelper } from 'src/app/helpers/user';
 // import { ImagePicker, ImagePickerOptions, OutputType } from '@ionic-native/image-picker';
 
 
@@ -16,37 +17,39 @@ import { Camera, CameraOptions } from '@ionic-native/Camera/ngx';
 })
 export class AjouterProduitPage implements OnInit {
 
+  userData:any;
+
   @Input() produit!: Produit;
   public form! : FormGroup;
   isEditMode = false;
   croppedImagepath = "";
   isLoading = false;
-
-  imagePickerOptions = {
-    maximumImagesCount: 1,
-    quality: 50
-  };
-  
+  categorie:any;
   photo = [];
+  localUser:any
 
   constructor(
     private produitService:ProduitService,
     private loadingCtrl: LoadingController,
     private router: Router,
     private modalCtrl:ModalController,
-    private camera: Camera,
     public actionSheetController: ActionSheetController,
-    private file: File
+    private categorieService: CategoriesService
     // private imagePicker: ImagePicker,
     
   ) { }
   ngOnInit() {
-    this.initAddproductForm();
 
+    this.userData = UserHelper.getUser()?.user;
+    
+
+    this.initAddproductForm();
     if(this.produit){
       this.isEditMode = true;
       this.setFormValues();
     }
+
+    this.getListOfCategorie();
 
     
   }
@@ -60,9 +63,16 @@ export class AjouterProduitPage implements OnInit {
       size: new FormControl(null,[Validators.required]),
       price: new FormControl(null,[Validators.required]),
       status: new FormControl(null,[Validators.required]),
-      //categorie: new FormControl(null,[Validators.required]),
-     
+      category: new FormControl(null,[Validators.required]),
+      user_id: new FormControl(this.userData.id),
     });
+  }
+
+  getListOfCategorie(){
+    this.categorieService.getCategories().subscribe((response : any) =>{
+      this.categorie = response;
+      console.log(this.categorie);
+    } )
   }
 
   setFormValues(){
@@ -74,6 +84,8 @@ export class AjouterProduitPage implements OnInit {
       size: this.produit.size,
       price: this.produit.price,
       status: this.produit.status,
+      category: this.produit.category,
+      user_id: this.userData.id, 
     })
   }   
 
@@ -84,7 +96,6 @@ export class AjouterProduitPage implements OnInit {
   async add(){
     const loading = await this.loadingCtrl.create({message:'Loading...'});
     loading.present();
-
     let response;
     if(this.isEditMode){
       response = this.produitService.updateProduit(
@@ -93,9 +104,13 @@ export class AjouterProduitPage implements OnInit {
       );
     }
     else{
-      response = this.produitService.addProduit(this.form.value);
+      response = this.produitService.addProduit(
+        this.form.value,
+      );
+      console.log(this.userData.id)
     }
     response.pipe(take(1)).subscribe((produit:any) => {
+      console.log(produit);
       this.form.reset();
       loading.dismiss();
       if(this.isEditMode){
@@ -103,50 +118,12 @@ export class AjouterProduitPage implements OnInit {
         //.....
       }
     });  
-    //this.router.navigate(['/tab/home']);
+    this.router.navigate(['/tab/home']);
   }
 
-  pickImage(sourceType: number) {
-    const options: CameraOptions = {
-      quality: 100,
-      sourceType: sourceType,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    }
-    this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      this.croppedImagepath = 'data:image/jpeg;base64,' + imageData;
-    }, (err) => {
-      // Handle error
-    });
-  }
-
-  async selectImage() {
-    const actionSheet = await this.actionSheetController.create({
-      header: "Select Image source",
-      buttons: [{
-        text: 'Load from Library',
-        handler: () => {
-          this.pickImage(this.camera.PictureSourceType.PHOTOLIBRARY);
-        }
-      },
-      {
-        text: 'Use Camera',
-        handler: () => {
-          this.pickImage(this.camera.PictureSourceType.CAMERA);
-        }
-      },
-      {
-        text: 'Cancel',
-        role: 'cancel'
-      }
-      ]
-    });
-    await actionSheet.present();
-  }
-}
   
+
+}
 
   
 
