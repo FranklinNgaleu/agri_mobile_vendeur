@@ -7,8 +7,9 @@ import { ProduitService } from '../services/produit.service';
 import { Produit } from './produit.model';
 import { tap } from 'rxjs';
 import { DetailComponent } from '../detail/detail.component';
-import { userInfo } from 'os';
+//import { userInfo } from 'os';
 import { UserHelper } from '../helpers/user';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -20,15 +21,22 @@ export class HomePage {
   produits$!: Observable<Produit[]>;
   userData:any;
   listProduit:any;
-  
-  
-user:any
+  categories:any;
+  //produits = [];
+  user:any
+  produits: any;
+  a:any;
+  userOut:any;
+
+
+
   constructor(
     private router: Router,
     private http: HttpClient,
     private produitService: ProduitService,
     private loadingCtrl: LoadingController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private authService : AuthService
   ) {}
 
   add(){
@@ -41,34 +49,39 @@ user:any
 
 
   async ngOnInit(){
+
     this.userData = UserHelper.getUser()?.user;
-    console.log(this.userData.id)
+
+    let prod = localStorage.getItem("cat");
+    this.categories = JSON.parse(prod!);
+
     const loading = await this.loadingCtrl.create({ message: 'Loading...'});
     //loading.present();
-    this.produits$ = this.produitService.getProduitByUserID(this.userData.id)
-    // .pipe(
-    //   // tap((produits) => {
-    //   //   loading.dismiss();
+    this.produits$ = this.produitService.getProduitByUserIDAndCategory(this.userData.id,this.categories.title)
+    .pipe(
+      tap((produits) => {
+        //loading.dismiss();
+        // produits = produits.filter((it) =>{ 
+        //   return it.category === this.categories.title
+        // })  
+      })
+    ) 
 
-    //   // })
-    // )
-    console.log()
-
-    //this.getListOfProduit();
     
   }
 
-  // async getListOfProduit(){
-  //   const loading = await this.loadingCtrl.create({ message: 'Loading...'});
-  //   loading.present();
-  //   this.produitService.getProduit().subscribe((res : any) => {
-  //     loading.dismiss();
-  //     this.listProduit = res;
-  //     console.log(this.listProduit)
-  //   })
+  
 
-  // }
+  ionViewDidEnter(){
+    this.ngOnInit();
+    //this.openDetailModal(produit: Produit);
+  }
 
+  back(){
+    this.router.navigate(['/tab/accueil'])
+  }
+
+  
   async openDetailModal(produit: Produit){
     const modal = await this.modalCtrl.create({
       component: DetailComponent,
@@ -97,7 +110,12 @@ user:any
         })
       );
     }
-  }
+  } 
 
-  
+  logout(){
+    this.userOut = this.authService.signOut(this.userData).subscribe((response : any) =>{
+      console.log(response);
+      this.router.navigate(['connexion'])
+    })
+  }
 }

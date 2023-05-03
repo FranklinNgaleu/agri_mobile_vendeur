@@ -12,8 +12,9 @@ export class ProduitService {
   userData = UserHelper.getUser()?.user;
   apiUrl = 'http://localhost:8000/api/index'
   apiUrl2 = 'http://localhost:8000/api/addProduit'
-  apiUrl3 = 'http://localhost:8000/api/updateProduit'
-  apiUrl4 = 'http://localhost:8000/api/getProduitByUserId'
+  apiUrl3 = 'http://localhost:8000/api/updateProduit/'
+  apiUrl4 = 'http://127.0.0.1:8000/api/deleteProduit/'
+  apiUrl5 = 'http://localhost:8000/api/getProduitByUserIDAndCategory/'
   
   constructor(
     private http: HttpClient
@@ -23,19 +24,19 @@ export class ProduitService {
     return this.http.get<Produit[]>(this.apiUrl);
   }
 
-  addProduit(produit:Produit): Observable<Produit>{
-    return this.http.post<Produit>(this.apiUrl2,produit);
+  addProduit(produit:any): Observable<any>{
+    return this.http.post<any>(this.apiUrl2,produit);
   }
 
   updateProduit(produitId:number, produit:Produit): Observable<Produit>{
-    return this.http.put<Produit>('http://127.0.0.1:8000/api/updateProduit/'+produitId, produit);
+    return this.http.put<Produit>(this.apiUrl3 + produitId, produit);
   }
 
   deleteProduit(produitId:number):Observable<Produit>{
-    return this.http.delete<Produit>('http://127.0.0.1:8000/api/deleteProduit/'+produitId);
+    return this.http.delete<Produit>(this.apiUrl4 + produitId);
   }
 
-  getProduitByUserID(id:number):Observable<Produit[]>{
-    return this.http.get<Produit[]>('http://localhost:8000/api/getProduitByUserId/' + id );
+  getProduitByUserIDAndCategory(id:number,category:string):Observable<Produit[]>{
+    return this.http.get<Produit[]>(this.apiUrl5 + id +'/'+ category);
   }
 }

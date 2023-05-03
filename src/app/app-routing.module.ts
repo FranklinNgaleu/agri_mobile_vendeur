@@ -42,7 +42,11 @@ const routes: Routes = [
   {
     path: 'modifier-produit',
     loadChildren: () => import('./pages/modifier-produit/modifier-produit.module').then( m => m.ModifierProduitPageModule)
+  },  {
+    path: 'accueil',
+    loadChildren: () => import('./pages/accueil/accueil.module').then( m => m.AccueilPageModule)
   },
+
   
 
 

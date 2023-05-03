@@ -5,6 +5,14 @@
       <ion-button (click)="add()">
         <ion-icon slot="start" name="add"></ion-icon>
       </ion-button>
+      <!-- <ion-button (click)="logout()">
+        <ion-icon slot="start" name="log-out"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+    <ion-buttons slot="start" >
+      <ion-button (click)="back()">
+        <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>  
@@ -18,11 +26,11 @@
         <ion-row>
           <ion-col size="3">
             <ion-thumbnail>
-              <img src="../../assets/orange.jpg" />
+              <img src= "http://localhost:8000/storage/{{pro.photo}}"/>
             </ion-thumbnail>
           </ion-col>
           <ion-col size="9">
-            <ion-card-title>{{pro.title}}</ion-card-title>
+            <ion-card-title>{{pro.type}}</ion-card-title>
             <ion-card-title>FCFA {{pro.price}}</ion-card-title>
             <!-- <ion-card-title>{{pro.status}}</ion-card-title> -->
             <ion-badge color="secondary">{{pro.status}}</ion-badge>

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{produit.title}}</ion-title>
+    <ion-title>{{produit.type}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="closeModal()">
         <ion-icon slot="start" name="close"></ion-icon>
@@ -10,19 +10,24 @@
 </ion-header>
 
 <ion-content>
-  <img src="../../assets/orange.jpg" alt="">
+  <img src="http://localhost:8000/storage/{{produit.photo}}" alt="">
   <div class = "ion-padding">
     <ion-text>
-      <h1>{{produit.title}}</h1>
+      <h1>{{produit.type}}</h1>
       <p class="ion-margin-vertical">{{produit.description }}</p>
-      <h1>Size: {{produit.size}}</h1>
-      <h1>Stock:{{produit.stock}}</h1>
+      <!-- <h1>Size: {{produit.size}}</h1>
+      <h1>Stock:{{produit.stock}}</h1> -->
       <h3 >FCFA {{produit.price}}</h3>
       <h1>{{produit.status}}</h1>
-      
     </ion-text>
 
-    <ion-button expand="block" (click)="openEditModal()">Edit</ion-button>
-    <ion-button expand="block" color="danger" (click)="onDeleteProduct()">Delete</ion-button>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button expand="block" (click)="openEditModal()">Edit</ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button expand="block" color="danger" (click)="onDeleteProduct()">Delete</ion-button>
+      </ion-col>
+    </ion-row>
   </div>
 </ion-content>

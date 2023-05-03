@@ -18,6 +18,8 @@ import { UserHelper } from 'src/app/helpers/user';
 export class AjouterProduitPage implements OnInit {
 
   userData:any;
+  file:any;
+  categories:any;
 
   @Input() produit!: Produit;
   public form! : FormGroup;
@@ -40,6 +42,8 @@ export class AjouterProduitPage implements OnInit {
   ) { }
   ngOnInit() {
 
+    let prod = localStorage.getItem("cat");
+    this.categories = JSON.parse(prod!);
     this.userData = UserHelper.getUser()?.user;
     
 
@@ -49,42 +53,42 @@ export class AjouterProduitPage implements OnInit {
       this.setFormValues();
     }
 
-    this.getListOfCategorie();
+    //this.getListOfCategorie();
 
-    
+    console.log(this.categories.title)
   }
 
   initAddproductForm(){
     this.form = new FormGroup({
-      title: new FormControl(null,[Validators.required]),
+      type: new FormControl(null,[Validators.required]),
       description: new FormControl(null,[Validators.required]),
       photo: new FormControl(null,[Validators.required]),
-      stock: new FormControl(null,[Validators.required]),
-      size: new FormControl(null,[Validators.required]),
+      // stock: new FormControl(null,[Validators.required]),
+      // size: new FormControl(null,[Validators.required]),
       price: new FormControl(null,[Validators.required]),
       status: new FormControl(null,[Validators.required]),
-      category: new FormControl(null,[Validators.required]),
+      category: new FormControl(this.categories.title),
       user_id: new FormControl(this.userData.id),
     });
   }
 
-  getListOfCategorie(){
-    this.categorieService.getCategories().subscribe((response : any) =>{
-      this.categorie = response;
-      console.log(this.categorie);
-    } )
-  }
+  // getListOfCategorie(){
+  //   this.categorieService.getCategories().subscribe((response : any) =>{
+  //     this.categorie = response;
+  //     console.log(this.categorie);
+  //   } )
+  // }
 
   setFormValues(){
     this.form.setValue({
-      title: this.produit.title,
+      type: this.produit.type,
       description: this.produit.description,
       photo: this.produit.photo,
-      stock: this.produit.stock,
-      size: this.produit.size,
+      // stock: this.produit.stock,
+      // size: this.produit.size,
       price: this.produit.price,
       status: this.produit.status,
-      category: this.produit.category,
+      category: this.categories.title,
       user_id: this.userData.id, 
     })
   }   
@@ -104,10 +108,20 @@ export class AjouterProduitPage implements OnInit {
       );
     }
     else{
+      const f = new FormData()
+      f.append("photo", this.file)
+      f.append("type", this.form.value.type)
+      f.append("description", this.form.value.description)
+      // f.append("stock", this.form.value.stock)
+      // f.append("size", this.form.value.size)
+      f.append("price", this.form.value.price)
+      f.append("status", this.form.value.status)
+      f.append("category", this.form.value.category)
+      f.append("user_id", this.form.value.user_id)
       response = this.produitService.addProduit(
-        this.form.value,
+        f
       );
-      console.log(this.userData.id)
+      //console.log(this.userData.id)
     }
     response.pipe(take(1)).subscribe((produit:any) => {
       console.log(produit);
@@ -121,7 +135,10 @@ export class AjouterProduitPage implements OnInit {
     this.router.navigate(['/tab/home']);
   }
 
-  
+  uploadFile(event: Event){
+    this.file = (event.target as HTMLInputElement)?.files?.[0];
+    
+  }
 
 }
 

@@ -20,8 +20,8 @@
   <form [formGroup]="form">
     <ion-card>
      <ion-item>
-      <ion-label position="floating">Nom</ion-label>
-        <ion-input formControlName="title"></ion-input>
+      <ion-label position="floating">Type</ion-label>
+        <ion-input formControlName="type"></ion-input>
      </ion-item>
         
       
@@ -37,23 +37,25 @@
     <ion-card>
       <ion-item>
         <ion-label position="floating"></ion-label>
-        <ion-input type="file" formControlName="photo"></ion-input>
+        <ion-input #file type="file" required (change)="uploadFile($event)" formControlName="photo"></ion-input>
       </ion-item>
     </ion-card>
+
+    
   
-    <ion-card>
+    <!-- <ion-card>
       <ion-item>
         <ion-label position="floating">Stock</ion-label>
         <ion-input type="number" formControlName="stock"></ion-input>
       </ion-item>
-    </ion-card>
+    </ion-card> -->
   
-    <ion-card>
+    <!-- <ion-card>
       <ion-item>
         <ion-label position="floating">Size</ion-label>
         <ion-input formControlName="size"></ion-input>
       </ion-item>
-    </ion-card>
+    </ion-card> -->
   
     <ion-card>
       <ion-item>
@@ -71,13 +73,13 @@
       </ion-item>
     </ion-card>
   
-    <ion-card>
+    <!-- <ion-card>
       <ion-item *ngFor="let cat of categorie">
         <ion-select formControlName="category" placeholder="Categorie">
           <ion-select-option>{{cat.title}}</ion-select-option>
         </ion-select>
       </ion-item>
-    </ion-card>
+    </ion-card> -->
 
     <ion-button expand="block" (click)="add()"  style="margin-top: 20px;"> 
       {{isEditMode ? 'Update' : 'Add'}} 

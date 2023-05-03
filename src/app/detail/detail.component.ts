@@ -22,7 +22,10 @@ export class DetailComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // this.onDeleteProduct();
+    // this.openEditModal();
+  }
 
   closeModal(role = 'edit'){
     this.modalCtrl.dismiss(this.produit, role);
@@ -41,6 +44,10 @@ export class DetailComponent implements OnInit {
     }
   }
 
+  ionViewDidEnter(){
+    //this.onDeleteProduct();
+    //this.openDetailModal(produit: Produit);
+  }
   async onDeleteProduct(){
     const loading = await this.loadingCtrl.create({message: 'Deleting...'});
     loading.present();

@@ -112,7 +112,7 @@ export class ConnexionPage{
       console.log(login);
       UserHelper.connect(data);
       this.userData = UserHelper.getUser()?.user;
-      if(this.userData.email == this.loginForm.value.email){
+      if(this.userData.email == this.loginForm.value.email && this.userData.status == 'active'){
         this.redirectByRole();
       }else{
         console.log("ndem");
@@ -128,7 +128,7 @@ export class ConnexionPage{
   redirectByRole(){
     if(this. userData.role == 'vendeur'){
       console.log(UserHelper.getUser());
-    this.navCtrl.navigateRoot('/tab/home', { animationDirection: 'forward' });
+    this.navCtrl.navigateRoot('/tab/accueil', { animationDirection: 'forward' });
     };
   }
   

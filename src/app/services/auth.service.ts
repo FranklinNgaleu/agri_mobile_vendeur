@@ -17,17 +17,21 @@ export class AuthService {
   list! :User[];
 
 
-  
-  private API_URL = environment.API_URL;
+  url='http://127.0.0.1:8000/api/auth'
+  //private API_URL = environment.url;
   constructor(
     private http: HttpClient
   ) { }
 
   registerUser(id: number): Observable<Object> {
-    return this.http.post(this.API_URL + 'register',id);
+    return this.http.post(this.url + 'register',id);
   }
 
   login(email: any,password: any){
-    return this.http.post(this.API_URL + 'login', {email,password})
+    return this.http.post(this.url + 'login', {email,password})
+  }
+
+  logoutUser(id:number) {
+    return this.http.post(this.url + 'logout',id);
   }
 }

@@ -9,7 +9,8 @@ export class AuthService {
 
   // private API_URL = environment.API_URL;
 
-  rootURL = `${environment.API_URL}`;
+  url='http://127.0.0.1:8000/api/auth'
+  //private rootURL = environment.url;
   constructor(private http: HttpClient) {
 
   }
@@ -19,30 +20,30 @@ export class AuthService {
   // }
 
   login(userData: any): Observable<any>{
-    return this.http.post<any>(`${this.rootURL}/login`, userData);
+    return this.http.post<any>(`${this.url}/login`, userData);
   }
 
   register(userData: any): Observable<any>{
-    return this.http.post<any>(`${this.rootURL}/register`, userData);
+    return this.http.post<any>(`${this.url}/register`, userData);
   }
 
   terminer_register(userData: any,token:any): Observable<any>{
-    return this.http.post<any>(`${this.rootURL}/end_register/${token}`, userData);
+    return this.http.post<any>(`${this.url}/end_register/${token}`, userData);
   }
 
   verifyToken(code:any ):Observable<any> {
-    return this.http.get<any>(`${this.rootURL}/checkend_register/${code}`)
+    return this.http.get<any>(`${this.url}/checkend_register/${code}`)
   }
 
   signOut(data: any): Observable<any> {
-    return this.http.post<any>(`${this.rootURL}/logOut.php`, data);
+    return this.http.post<any>(`${this.url}/logout`, data);
   }
 
   verify(userId:any ,code:any ):Observable<any> {
-    return this.http.get<any>(`${this.rootURL}verify/${userId}/${code}`)
+    return this.http.get<any>(`${this.url}verify/${userId}/${code}`)
   }
 
   ResendCode(userId:any):Observable<any> {
-    return this.http.get<any>(`${this.rootURL}refreshcode/${userId}`)
+    return this.http.get<any>(`${this.url}refreshcode/${userId}`)
   }
 }

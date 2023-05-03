@@ -32,6 +32,10 @@ const routes: Routes = [
             loadChildren: () => import('src/app/pages/modifier-produit/modifier-produit.module').then( m => m.ModifierProduitPageModule)
           },
           {
+            path: 'accueil',
+            loadChildren: () => import('src/app/pages/accueil/accueil.module').then( m => m.AccueilPageModule)
+          },
+          {
             path: '',
             redirectTo: '/tab/home',
             pathMatch: 'full',
