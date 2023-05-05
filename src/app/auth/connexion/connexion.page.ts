@@ -61,23 +61,7 @@ export class ConnexionPage{
   // }
 
   // login(){
-  //   const val = this.authService.formData.value;
-  //   this.authService.login(val.email, val.password).subscribe(res =>{
-  //     this.users = res;
-  //     console.log(this.users.user);
-  //     let jwt = "bearer" + this.users.jwt;
-  //     localStorage.setItem("token",jwt)
-  //     localStorage.setItem("user",JSON.stringify(this.users.user))
-  //     this.authService.islogin = true;
-  //     if(this.users.user.role == "vendeur" && this.users.user.status == "active" ){
-  //       // this.authService.vendeur = true;
-  //       this.router.navigate(['/tab/home']);
-  //     }
-  //     // else {
-  //     //   this.authService.admin = true;
-  //     //   this.router.navigate(['/tab/about']);
-  //     // }
-  //   });
+  //   this.router.navigate(['/tab/accueil']);
   // }
 
   // showToast(msg: string){

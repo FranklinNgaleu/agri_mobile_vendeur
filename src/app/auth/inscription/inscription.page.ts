@@ -25,7 +25,7 @@ export class InscriptionPage implements OnInit {
     email: new FormControl('', [Validators.required]),
     contact: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
-    pass: new FormControl('', [Validators.required]),
+    //pass: new FormControl('', [Validators.required]),
     role: new FormControl(''),
   });
 
@@ -86,9 +86,9 @@ export class InscriptionPage implements OnInit {
     let register={
       name : this.registerForm.value.name,
       email : this.registerForm.value.email,
-      contact : ""+this.registerForm.value.contact,
+      contact : "" + this.registerForm.value.contact,
       password : this.registerForm.value.password,
-      pass : this.registerForm.value.pass,
+      //pass: this.registerForm.value.pass,
       role : "vendeur",
     };
     this.submitting = true;
