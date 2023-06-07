@@ -10,7 +10,7 @@ export interface Produit {
     size: string;
     price: number;
     status:string;
-    category:string;
+    cat_id:number;
     user_id : User;
 
 }

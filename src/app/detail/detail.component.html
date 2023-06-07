@@ -13,12 +13,12 @@
   <img src="http://localhost:8000/storage/{{produit.photo}}" alt="">
   <div class = "ion-padding">
     <ion-text>
-      <h1>{{produit.type}}</h1>
-      <p class="ion-margin-vertical">{{produit.description }}</p>
+      <h1>NAME: {{produit.type}}</h1>
+      <p class="ion-margin-vertical">ABOUT: {{produit.description }}</p>
       <!-- <h1>Size: {{produit.size}}</h1>
       <h1>Stock:{{produit.stock}}</h1> -->
-      <h3 >FCFA {{produit.price}}</h3>
-      <h1>{{produit.status}}</h1>
+      <h3>FCFA {{produit.price}}</h3>
+      <h1 id="status">{{produit.status}}</h1>
     </ion-text>
 
     <ion-row>

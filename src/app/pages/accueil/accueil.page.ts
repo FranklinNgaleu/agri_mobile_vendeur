@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserHelper } from 'src/app/helpers/user';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { ProduitService } from 'src/app/services/produit.service';
 
@@ -14,6 +16,7 @@ export class AccueilPage implements OnInit {
   produits:any;
 
   constructor(
+    private authService: AuthService,
     private router: Router,
     private categorieService: CategoriesService,
     private produitService : ProduitService
@@ -41,6 +44,16 @@ export class AccueilPage implements OnInit {
     this.router.navigate(['/tab/home']);
   }
 
+  logout() {
+    this.authService.logout().toPromise().then((data:any)=>{ 
+      localStorage.removeItem(UserHelper.getUser().token)
+      console.log(data);
+      this.router.navigate(['/connexion']);
+    })
+
+    // UserHelper.deleteItem()
+    // this.router.navigate(['/login']);
+  }
   // categorie(c){
   //   localStorage.setItem("liv", JSON.stringify(c));
   //   this.router.navigate(['/livre']);

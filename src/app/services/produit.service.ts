@@ -10,10 +10,15 @@ import { Produit } from '../home/produit.model';
 export class ProduitService {
 
   userData = UserHelper.getUser()?.user;
-  apiUrl = 'http://localhost:8000/api/index'
-  apiUrl2 = 'http://localhost:8000/api/addProduit'
-  apiUrl3 = 'http://localhost:8000/api/updateProduit/'
-  apiUrl4 = 'http://127.0.0.1:8000/api/deleteProduit/'
+  //apiUrl = 'https://barber1.herokuapp.com/api/index'
+  //apiUrl2 = 'https://barber1.herokuapp.com/api/addProduit/'
+  //apiUrl3 = 'https://barber1.herokuapp.com/api/updateProduit/'
+  //apiUrl4 = 'https://barber1.herokuapp.com/api/deleteProduit/'
+  //apiUrl5 = 'https://barber1.herokuapp.com/api/getProduitByUserIDAndCategory/'
+   apiUrl = 'http://localhost:8000/api/index'
+   apiUrl2 = 'http://localhost:8000/api/addProduit/'
+   apiUrl3 = 'http://localhost:8000/api/updateProduit/'
+   apiUrl4 = 'http://localhost:8000/api/deleteProduit/'
   apiUrl5 = 'http://localhost:8000/api/getProduitByUserIDAndCategory/'
   
   constructor(
@@ -24,8 +29,8 @@ export class ProduitService {
     return this.http.get<Produit[]>(this.apiUrl);
   }
 
-  addProduit(produit:any): Observable<any>{
-    return this.http.post<any>(this.apiUrl2,produit);
+  addProduit(produit:any, cat_id:number): Observable<any>{
+    return this.http.post<any>(this.apiUrl2 + cat_id,produit);
   }
 
   updateProduit(produitId:number, produit:Produit): Observable<Produit>{

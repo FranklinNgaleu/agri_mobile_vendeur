@@ -9,6 +9,7 @@ export class AuthService {
 
   // private API_URL = environment.API_URL;
 
+  //url = "https://barber1.herokuapp.com/api/auth"
   url='http://127.0.0.1:8000/api/auth'
   //private rootURL = environment.url;
   constructor(private http: HttpClient) {
@@ -35,8 +36,13 @@ export class AuthService {
     return this.http.get<any>(`${this.url}/checkend_register/${code}`)
   }
 
-  signOut(data: any): Observable<any> {
-    return this.http.post<any>(`${this.url}/logout`, data);
+  // logout(data: any): Observable<any> {
+  //   return this.http.post<any>(`${this.url}/logout`, data);
+  // }
+
+  logout():Observable<any>{
+    return this.http.post<any>(`${this.url}/logout`,{})
+    
   }
 
   verify(userId:any ,code:any ):Observable<any> {

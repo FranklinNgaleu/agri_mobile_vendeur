@@ -56,6 +56,8 @@ export class AjouterProduitPage implements OnInit {
     //this.getListOfCategorie();
 
     console.log(this.categories.title)
+    console.log(this.categories.id)
+    
   }
 
   initAddproductForm(){
@@ -90,6 +92,7 @@ export class AjouterProduitPage implements OnInit {
       status: this.produit.status,
       category: this.categories.title,
       user_id: this.userData.id, 
+      cat_id: this.categorie.id,
     })
   }   
 
@@ -119,7 +122,8 @@ export class AjouterProduitPage implements OnInit {
       f.append("category", this.form.value.category)
       f.append("user_id", this.form.value.user_id)
       response = this.produitService.addProduit(
-        f
+        f,
+        this.categories.id
       );
       //console.log(this.userData.id)
     }

@@ -32,7 +32,6 @@ export class HomePage {
 
   constructor(
     private router: Router,
-    private http: HttpClient,
     private produitService: ProduitService,
     private loadingCtrl: LoadingController,
     private modalCtrl: ModalController,
@@ -54,6 +53,9 @@ export class HomePage {
 
     let prod = localStorage.getItem("cat");
     this.categories = JSON.parse(prod!);
+
+    console.log(this.userData.id)
+    console.log(this.categories.title)
 
     const loading = await this.loadingCtrl.create({ message: 'Loading...'});
     //loading.present();
@@ -112,10 +114,10 @@ export class HomePage {
     }
   } 
 
-  logout(){
-    this.userOut = this.authService.signOut(this.userData).subscribe((response : any) =>{
-      console.log(response);
-      this.router.navigate(['connexion'])
-    })
-  }
+  // logout(){
+  //   this.userOut = this.authService.signOut(this.userData).subscribe((response : any) =>{
+  //     console.log(response);
+  //     this.router.navigate(['connexion'])
+  //   })
+  // }
 }

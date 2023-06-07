@@ -9,6 +9,7 @@ import { Categorie } from '../home/categorie.model';
 export class CategoriesService {
 
   apiUrl = 'http://localhost:8000/api/getCategories'
+  //apiUrl = 'https://barber1.herokuapp.com/api/getCategories'
 
   constructor(
     private http: HttpClient

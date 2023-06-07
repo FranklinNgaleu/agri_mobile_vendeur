@@ -16,8 +16,9 @@ export class AuthService {
   vendeur = false;
   list! :User[];
 
-
-  url='http://127.0.0.1:8000/api/auth'
+  
+  url = "https://barber1.herokuapp.com/api/auth"
+  //url='http://127.0.0.1:8000/api/auth'
   //private API_URL = environment.url;
   constructor(
     private http: HttpClient

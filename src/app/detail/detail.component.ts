@@ -25,6 +25,7 @@ export class DetailComponent implements OnInit {
   ngOnInit() {
     // this.onDeleteProduct();
     // this.openEditModal();
+    console.log(this.produit)
   }
 
   closeModal(role = 'edit'){

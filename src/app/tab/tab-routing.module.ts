@@ -36,6 +36,10 @@ const routes: Routes = [
             loadChildren: () => import('src/app/pages/accueil/accueil.module').then( m => m.AccueilPageModule)
           },
           {
+            path: 'order',
+            loadChildren: () => import('src/app/pages/order/order.module').then( m => m.OrderPageModule)
+          },
+          {
             path: '',
             redirectTo: '/tab/home',
             pathMatch: 'full',
