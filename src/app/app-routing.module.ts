@@ -50,6 +50,10 @@ const routes: Routes = [
     path: 'order',
     loadChildren: () => import('./pages/order/order.module').then( m => m.OrderPageModule)
   },
+  {
+    path: 'detail-order',
+    loadChildren: () => import('./pages/detail-order/detail-order.module').then( m => m.DetailOrderPageModule)
+  },
 
   
 

@@ -44,6 +44,7 @@ export class AjouterProduitPage implements OnInit {
 
     let prod = localStorage.getItem("cat");
     this.categories = JSON.parse(prod!);
+    
     this.userData = UserHelper.getUser()?.user;
     
 

@@ -1,9 +1,20 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>order</ion-title>
+    <ion-title>My orders</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card *ngFor="let com of commandes">
+    <ion-card-header>
+      Commande #{{ com.id }}
+    </ion-card-header>
 
+    <ion-card-content (click)="view(com)">
+      <p>Statut : {{ com.status }}</p>
+      <p>Acheteur : {{ com.buyer_name }}</p>
+    </ion-card-content>
+    
+  </ion-card>
+  
 </ion-content>

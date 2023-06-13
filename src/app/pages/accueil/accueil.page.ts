@@ -14,6 +14,7 @@ export class AccueilPage implements OnInit {
 
   categories:any;
   produits:any;
+  userData:any;
 
   constructor(
     private authService: AuthService,
@@ -24,6 +25,10 @@ export class AccueilPage implements OnInit {
 
   ngOnInit() {
     this.getListOfCategorie();
+
+    this.userData = UserHelper.getUser()?.user;
+
+    //console.log(this.userData.id)
   }
 
   getListOfCategorie(){

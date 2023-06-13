@@ -9,8 +9,8 @@ export class AuthService {
 
   // private API_URL = environment.API_URL;
 
-  //url = "https://barber1.herokuapp.com/api/auth"
-  url='http://127.0.0.1:8000/api/auth'
+  url = "https://barber1.herokuapp.com/api/auth"
+  //url='http://127.0.0.1:8000/api/auth'
   //private rootURL = environment.url;
   constructor(private http: HttpClient) {
 

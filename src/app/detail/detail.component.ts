@@ -38,11 +38,30 @@ export class DetailComponent implements OnInit {
       componentProps: {produit: this.produit}
     });
     await modal.present();
+    console.log(this.produit)
 
-    const {data: updatedProduit} = await modal.onDidDismiss();
-    if(updatedProduit){
-      this.produit = updatedProduit;
+    const { data } = await modal.onDidDismiss();
+    if (data && data.produit) {
+      const produitModifie = data.produit;
+      console.log(produitModifie);
+  
+      // Appeler une méthode du service backend pour mettre à jour le produit en base de données
+      this.produitService.updateProduit(produitModifie.id, produitModifie).subscribe(
+        (produitMisAJour) => {
+          console.log('Produit mis à jour en base de données :', produitMisAJour);
+          this.produit = produitMisAJour;
+        },
+        (erreur) => {
+          console.error('Erreur lors de la mise à jour du produit en base de données :', erreur);
+        }
+      );
     }
+
+    // const {data: updateProduit} = await modal.onDidDismiss();
+    // if(updateProduit){
+    //   this.produit = updateProduit;
+    // }
+    
   }
 
   ionViewDidEnter(){
