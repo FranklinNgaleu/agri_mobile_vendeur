@@ -26,14 +26,15 @@
         <ion-row>
           <ion-col size="3">
             <ion-thumbnail>
-              <img src= "http://localhost:8000/storage/{{pro.photo}}"/>
+              <img src= "storage/product_images/{{pro.photo}}"/>
             </ion-thumbnail>
           </ion-col>
           <ion-col size="9">
             <ion-card-title>{{pro.type}}</ion-card-title>
             <ion-card-title>FCFA {{pro.price}}</ion-card-title>
             <!-- <ion-card-title>{{pro.status}}</ion-card-title> -->
-            <ion-badge color="secondary">{{pro.status}}</ion-badge>
+            
+            <ion-card-title >{{pro.status}}</ion-card-title>
           </ion-col>
         </ion-row>
       </ion-grid>

@@ -23,9 +23,7 @@ export class DetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.onDeleteProduct();
-    // this.openEditModal();
-    console.log(this.produit)
+    
   }
 
   closeModal(role = 'edit'){
@@ -56,18 +54,9 @@ export class DetailComponent implements OnInit {
         }
       );
     }
-
-    // const {data: updateProduit} = await modal.onDidDismiss();
-    // if(updateProduit){
-    //   this.produit = updateProduit;
-    // }
     
   }
 
-  ionViewDidEnter(){
-    //this.onDeleteProduct();
-    //this.openDetailModal(produit: Produit);
-  }
   async onDeleteProduct(){
     const loading = await this.loadingCtrl.create({message: 'Deleting...'});
     loading.present();

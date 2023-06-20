@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommandeService } from 'src/app/services/commande.service';
+import { Order } from '../order/order';
 
 @Component({
   selector: 'app-detail-order',
@@ -8,6 +9,7 @@ import { CommandeService } from 'src/app/services/commande.service';
 })
 export class DetailOrderPage implements OnInit {
 
+  order : any
   commandeSelect : any;
   constructor(
     public orderService : CommandeService
@@ -20,13 +22,18 @@ export class DetailOrderPage implements OnInit {
     console.log(this.commandeSelect)
   }
 
-  valider(){
-    this.orderService.ValiderCommande(this.commandeSelect.id).subscribe((response : any) => {})
+  async valider(order:any){
+    this.orderService.accepted(this.commandeSelect.id).toPromise().then((data: any)=>{
+      console.log(data)
+    });
   }
 
-  annuler(){
-    this.orderService.RefuserCommande(this.commandeSelect.id).subscribe((response : any) => {})
+  annuler(order : any){
+    this.orderService.rejected(this.commandeSelect.id).toPromise().then((data: any)=>{
+      console.log(data)
+    });
   }
 
 
 }
+

@@ -10,11 +10,11 @@ import { Produit } from '../home/produit.model';
 export class ProduitService {
 
   userData = UserHelper.getUser()?.user;
-  apiUrl = 'https://barber1.herokuapp.com/api/index'
-  apiUrl2 = 'https://barber1.herokuapp.com/api/addProduit/'
-  apiUrl3 = 'https://barber1.herokuapp.com/api/updateProduit/'
-  apiUrl4 = 'https://barber1.herokuapp.com/api/deleteProduit/'
-  apiUrl5 = 'https://barber1.herokuapp.com/api/getProduitByUserIDAndCategory/'
+  apiUrl = 'https://barber01-acc54c1e7bc9.herokuapp.com/api/index'
+  apiUrl2 = 'https://barber01-acc54c1e7bc9.herokuapp.com/api/addProduit/'
+  apiUrl3 = 'https://barber01-acc54c1e7bc9.herokuapp.com/api/updateProduit/'
+  apiUrl4 = 'https://barber01-acc54c1e7bc9.herokuapp.com/api/deleteProduit/'
+  apiUrl5 = 'https://barber01-acc54c1e7bc9.herokuapp.com/api/getProduitByUserIDAndCategory/'
    //apiUrl = 'http://localhost:8000/api/index'
    //apiUrl2 = 'http://localhost:8000/api/addProduit/'
    //apiUrl3 = 'http://localhost:8000/api/updateProduit/'

@@ -7,18 +7,13 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class AuthService {
 
-  // private API_URL = environment.API_URL;
 
-  url = "https://barber1.herokuapp.com/api/auth"
+  url = "https://barber01-acc54c1e7bc9.herokuapp.com/api/auth"
   //url='http://127.0.0.1:8000/api/auth'
-  //private rootURL = environment.url;
+  
   constructor(private http: HttpClient) {
 
   }
-
-  // login(userData:any){
-  //   return this.http.post(this.API_URL + 'login', {userData})
-  // }
 
   login(userData: any): Observable<any>{
     return this.http.post<any>(`${this.url}/login`, userData);

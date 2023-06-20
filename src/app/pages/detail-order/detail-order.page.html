@@ -10,17 +10,17 @@
   
   <ion-card>
     <ion-card-content>
-      <p>Statut : {{ commandeSelect.status }}</p>
+      <p>Status : {{ commandeSelect.status }}</p>
       <p>Acheteur : {{ commandeSelect.buyer_name }}</p>
-      <p>Coiffeur : {{ commandeSelect.seller_name }}</p>
       <p>Coiffures : {{ commandeSelect.product_names }}</p>
+      <p>Price : FCFA {{ commandeSelect.total_amount }}</p>
     </ion-card-content>
     <ion-row>
       <ion-col size="6">
-        <ion-button expand="full" color="success" (click)="valider()">Valider</ion-button>
+        <ion-button expand="full" color="success" (click)="valider(order)">Valider</ion-button>
       </ion-col>
       <ion-col size="6">
-        <ion-button expand="full" color="danger" (click)="annuler()">Annuler</ion-button>
+        <ion-button expand="full" color="danger" (click)="annuler(order)">Annuler</ion-button>
       </ion-col>
     </ion-row>
   </ion-card>

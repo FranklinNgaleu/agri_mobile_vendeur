@@ -15,6 +15,7 @@ export class OrderPage implements OnInit {
   
   
   
+  
   constructor(
     public orderService : CommandeService,
     private router : Router
@@ -44,8 +45,6 @@ export class OrderPage implements OnInit {
   view(com: any){
     localStorage.setItem("com", JSON.stringify(com));
     this.router.navigate(['/detail-order']);
-  }
-
-  
+  }  
 
 }

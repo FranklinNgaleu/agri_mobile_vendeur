@@ -58,6 +58,8 @@ export class AjouterProduitPage implements OnInit {
 
     console.log(this.categories.title)
     console.log(this.categories.id)
+
+    
     
   }
 
@@ -109,7 +111,7 @@ export class AjouterProduitPage implements OnInit {
       response = this.produitService.updateProduit(
         this.produit.id,
         this.form.value
-      );
+      ); 
     }
     else{
       const f = new FormData()

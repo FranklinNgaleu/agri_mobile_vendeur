@@ -5,5 +5,16 @@
 </ion-header>
 
 <ion-content>
+  <ion-card *ngFor="let com of commandes">
+    <ion-card-header>
+      Commande #{{ com.id }}
+    </ion-card-header>
 
+    <ion-card-content>
+      <p>Coiffures : {{ com.product_names }}</p>
+      <p>Price : FCFA {{ com.total_amount }}</p>
+      <p>Acheteur : {{ com.buyer_name }}</p>
+    </ion-card-content>
+    
+  </ion-card>
 </ion-content>
