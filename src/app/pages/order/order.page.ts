@@ -13,7 +13,7 @@ export class OrderPage implements OnInit {
   commandes : any[] = [];
   userData : any;
   
-  
+  order : any
   
   
   constructor(
@@ -26,9 +26,6 @@ export class OrderPage implements OnInit {
     this.getListOfCommandes();
 
     this.userData = UserHelper.getUser()?.user;
-
-    console.log(this.userData.id)
-   
   }
 
   getListOfCommandes(){
@@ -46,5 +43,4 @@ export class OrderPage implements OnInit {
     localStorage.setItem("com", JSON.stringify(com));
     this.router.navigate(['/detail-order']);
   }  
-
 }

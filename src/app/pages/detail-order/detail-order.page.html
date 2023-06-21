@@ -9,11 +9,12 @@
 <ion-content>
   
   <ion-card>
-    <ion-card-content>
+    <ion-card-content >
       <p>Status : {{ commandeSelect.status }}</p>
       <p>Acheteur : {{ commandeSelect.buyer_name }}</p>
       <p>Coiffures : {{ commandeSelect.product_names }}</p>
       <p>Price : FCFA {{ commandeSelect.total_amount }}</p>
+      <p>AT : {{ commandeSelect.created_at |date }}</p>
     </ion-card-content>
     <ion-row>
       <ion-col size="6">
